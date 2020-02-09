@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -18,8 +18,8 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import allam9072.fm.DB.Category;
-import allam9072.fm.ui.ListActivity.ListActivity;
 import allam9072.fm.R;
+import allam9072.fm.ui.ListActivity.ListActivity;
 
 public class adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int ITEM1 = 1;
@@ -64,6 +64,16 @@ public class adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
         } else {
             ((Item2_VH) holder).tv3.setText(list.get(position).getCat_name());
+            try {
+                String imageUrl = list.get(position).getCat_image();
+                Picasso.with(context)
+                        .load(imageUrl)
+                        .error(R.drawable.food1)
+                        .fit()
+                        .centerCrop()
+                        .into(((Item2_VH) holder).imageView2);
+            } catch (Exception ignored) {
+            }
         }
 
     }
@@ -96,8 +106,9 @@ public class adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ListActivity.class);
                     intent.putExtra("cat_title", list.get(getAdapterPosition()).getCat_name());
+                    intent.putExtra("cat_id", list.get(getAdapterPosition()).getCat_id());
                     context.startActivity(intent);
-                    Toast.makeText(context, list.get(getAdapterPosition()).getCat_name(), Toast.LENGTH_SHORT).show();
+
                 }
             });
 
@@ -106,10 +117,24 @@ public class adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     class Item2_VH extends RecyclerView.ViewHolder {
         TextView tv3;
+        ImageView imageView2;
+        LinearLayout linearLayout;
 
         public Item2_VH(@NonNull View itemView) {
             super(itemView);
             tv3 = itemView.findViewById(R.id.tv_2);
+            imageView2 = itemView.findViewById(R.id.iv_category_item2);
+            linearLayout = itemView.findViewById(R.id.view_linearLayout);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ListActivity.class);
+                    intent.putExtra("cat_title", list.get(getAdapterPosition()).getCat_name());
+                    intent.putExtra("cat_id", list.get(getAdapterPosition()).getCat_id());
+                    context.startActivity(intent);
+                }
+            });
+
         }
     }
 }

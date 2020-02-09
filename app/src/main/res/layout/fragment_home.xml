@@ -38,6 +38,7 @@
                 app:sliderStartAutoCycle="true" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:padding="4dp"
                 tools:listitem="@layout/item_rv_category"
                 android:id="@+id/rv"
                 android:layout_width="match_parent"

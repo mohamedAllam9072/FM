@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private SliderView sliderView;
     adapter adapter;
+    List<Category> categoryList;
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +48,6 @@ public class HomeFragment extends Fragment {
         setRecyclerView();
         recyclerView.setFocusable(false);
 
-        //setList();
         setSlider();
 
         retrofit();
@@ -60,12 +60,14 @@ public class HomeFragment extends Fragment {
                 .baseUrl("https://5bcce576cf2e850013874767.mockapi.io/task/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         JsonAPI jsonAPI = retrofit.create(JsonAPI.class);
+
         Call<List<Category>> call = jsonAPI.getAllCategories();
         call.enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                List<Category> categoryList = response.body();
+                categoryList = response.body();
                 adapter = new adapter(getContext(), categoryList);
                 recyclerView.setAdapter(adapter);
             }
@@ -77,19 +79,6 @@ public class HomeFragment extends Fragment {
         });
 
     }
-
-//    private void setList() {
-//        c_list = new ArrayList<>();
-//        c_list.add(new Category("recyclerView1", "x"));
-//        c_list.add(new Category("recyclerView2", "recyclerView9"));
-//        c_list.add(new Category("recyclerView3", "recyclerView10"));
-//        c_list.add(new Category("recyclerView4", "recyclerView11"));
-//        c_list.add(new Category("recyclerView5", "recyclerView12"));
-//        c_list.add(new Category("recyclerView6", "recyclerView13"));
-//        c_list.add(new Category("recyclerView7", "recyclerView14"));
-//
-//
-//    }
 
     private void setRecyclerView() {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);

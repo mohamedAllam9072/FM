@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Category {
+
     @SerializedName("id")
     private int cat_id;
     @SerializedName("name")

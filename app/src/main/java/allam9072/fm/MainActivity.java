@@ -1,9 +1,8 @@
 package allam9072.fm;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,12 +14,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import allam9072.fm.ui.IntroActivity.IntroActivity;
 
 public class MainActivity extends AppCompatActivity {
-    FloatingActionButton fab;
     DrawerLayout drawer;
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -30,27 +25,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        fab = findViewById(R.id.fab);
         drawer = findViewById(R.id.drawer_layout);
 
         setSupportActionBar(toolbar);
-        fabButton();
         navDrawer();
 
     }
 
 
-    private void fabButton() {
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
 
     private void navDrawer() {
         NavigationView navigationView = findViewById(R.id.nav_view);
